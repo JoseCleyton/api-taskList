@@ -34,9 +34,9 @@ public class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping(path = "/{id}")
-    public TaskList create(@PathVariable(name = "id") Long id, @RequestBody Task task){
-        TaskList taskList = this.taskListService.findById(id).get();
+    @PostMapping
+    public TaskList create(@RequestBody Task task){
+        TaskList taskList = this.taskListService.findById(task.getTaskList().getId()).get();
         taskList.getTasks().add(task);
         task.setTaskList(taskList);
         this.taskService.addTask(task);
